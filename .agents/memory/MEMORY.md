@@ -1,0 +1,2 @@
+- [Apna College course architecture](apna-course-arch.md) — localStorage-only progress (no Supabase), static lecture data in TypeScript
+- [Course routing pattern](course-routing.md) — parent route reads lectureId via useParams({strict:false}), child stub returns null
