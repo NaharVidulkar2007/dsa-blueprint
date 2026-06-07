@@ -9,38 +9,166 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as CourseRouteImport } from './routes/course'
+import { Route as AssignmentsRouteImport } from './routes/assignments'
+import { Route as ApnaRouteImport } from './routes/apna'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CourseLectureIdRouteImport } from './routes/course.$lectureId'
+import { Route as ApnaLectureIdRouteImport } from './routes/apna.$lectureId'
 
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CourseRoute = CourseRouteImport.update({
+  id: '/course',
+  path: '/course',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssignmentsRoute = AssignmentsRouteImport.update({
+  id: '/assignments',
+  path: '/assignments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApnaRoute = ApnaRouteImport.update({
+  id: '/apna',
+  path: '/apna',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CourseLectureIdRoute = CourseLectureIdRouteImport.update({
+  id: '/$lectureId',
+  path: '/$lectureId',
+  getParentRoute: () => CourseRoute,
+} as any)
+const ApnaLectureIdRoute = ApnaLectureIdRouteImport.update({
+  id: '/$lectureId',
+  path: '/$lectureId',
+  getParentRoute: () => ApnaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apna': typeof ApnaRouteWithChildren
+  '/assignments': typeof AssignmentsRoute
+  '/course': typeof CourseRouteWithChildren
+  '/login': typeof LoginRoute
+  '/notes': typeof NotesRoute
+  '/apna/$lectureId': typeof ApnaLectureIdRoute
+  '/course/$lectureId': typeof CourseLectureIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apna': typeof ApnaRouteWithChildren
+  '/assignments': typeof AssignmentsRoute
+  '/course': typeof CourseRouteWithChildren
+  '/login': typeof LoginRoute
+  '/notes': typeof NotesRoute
+  '/apna/$lectureId': typeof ApnaLectureIdRoute
+  '/course/$lectureId': typeof CourseLectureIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/apna': typeof ApnaRouteWithChildren
+  '/assignments': typeof AssignmentsRoute
+  '/course': typeof CourseRouteWithChildren
+  '/login': typeof LoginRoute
+  '/notes': typeof NotesRoute
+  '/apna/$lectureId': typeof ApnaLectureIdRoute
+  '/course/$lectureId': typeof CourseLectureIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/apna'
+    | '/assignments'
+    | '/course'
+    | '/login'
+    | '/notes'
+    | '/apna/$lectureId'
+    | '/course/$lectureId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/apna'
+    | '/assignments'
+    | '/course'
+    | '/login'
+    | '/notes'
+    | '/apna/$lectureId'
+    | '/course/$lectureId'
+  id:
+    | '__root__'
+    | '/'
+    | '/apna'
+    | '/assignments'
+    | '/course'
+    | '/login'
+    | '/notes'
+    | '/apna/$lectureId'
+    | '/course/$lectureId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApnaRoute: typeof ApnaRouteWithChildren
+  AssignmentsRoute: typeof AssignmentsRoute
+  CourseRoute: typeof CourseRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  NotesRoute: typeof NotesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/course': {
+      id: '/course'
+      path: '/course'
+      fullPath: '/course'
+      preLoaderRoute: typeof CourseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assignments': {
+      id: '/assignments'
+      path: '/assignments'
+      fullPath: '/assignments'
+      preLoaderRoute: typeof AssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apna': {
+      id: '/apna'
+      path: '/apna'
+      fullPath: '/apna'
+      preLoaderRoute: typeof ApnaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +176,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/course/$lectureId': {
+      id: '/course/$lectureId'
+      path: '/$lectureId'
+      fullPath: '/course/$lectureId'
+      preLoaderRoute: typeof CourseLectureIdRouteImport
+      parentRoute: typeof CourseRoute
+    }
+    '/apna/$lectureId': {
+      id: '/apna/$lectureId'
+      path: '/$lectureId'
+      fullPath: '/apna/$lectureId'
+      preLoaderRoute: typeof ApnaLectureIdRouteImport
+      parentRoute: typeof ApnaRoute
+    }
   }
 }
 
+interface ApnaRouteChildren {
+  ApnaLectureIdRoute: typeof ApnaLectureIdRoute
+}
+
+const ApnaRouteChildren: ApnaRouteChildren = {
+  ApnaLectureIdRoute: ApnaLectureIdRoute,
+}
+
+const ApnaRouteWithChildren = ApnaRoute._addFileChildren(ApnaRouteChildren)
+
+interface CourseRouteChildren {
+  CourseLectureIdRoute: typeof CourseLectureIdRoute
+}
+
+const CourseRouteChildren: CourseRouteChildren = {
+  CourseLectureIdRoute: CourseLectureIdRoute,
+}
+
+const CourseRouteWithChildren =
+  CourseRoute._addFileChildren(CourseRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApnaRoute: ApnaRouteWithChildren,
+  AssignmentsRoute: AssignmentsRoute,
+  CourseRoute: CourseRouteWithChildren,
+  LoginRoute: LoginRoute,
+  NotesRoute: NotesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
