@@ -52,7 +52,7 @@ export const APNA_LECTURES: ApnaLecture[] = [
   { id: "apna-f6", videoId: "okhdtEk1iKk", title: "Standard Template Library - One Shot", duration: "1:27:20", topicId: "foundations" },
   { id: "apna-f7", videoId: "varXreLWPRo", title: "How to setup C++ compiler on Mac ? — Software Installation for Mac users", duration: "1:40", topicId: "foundations" },
   { id: "apna-f8", videoId: "SBQfXK7q5K4", title: "One Major update & reaching 1000M views", duration: "3:50", topicId: "foundations" },
-  { id: "apna-f9", videoId: "3rFHlbJ7qKc", title: "Bellman Ford Algorithm - Single Source Shortest Path - Dynamic Programming", duration: "23:38", topicId: "foundations" },
+  { id: "apna-f9", videoId: "YlmU4gBgePA", title: "New DSA Sheet — DP, Heaps, Tries etc", duration: "6:24", topicId: "foundations" },
 
   // ── bit-manip ──
   { id: "apna-b1", videoId: "xpy5NXiBFvA", title: "Binary Number System", duration: "37:20", topicId: "bit-manip" },
@@ -201,7 +201,7 @@ export const APNA_LECTURES: ApnaLecture[] = [
   { id: "apna-graph12", videoId: "JI_e2RzARbM", title: "Flood Fill Algorithm — Graph Problem", duration: "15:10", topicId: "graphs" },
   { id: "apna-graph13", videoId: "BnQpaTZg6Sc", title: "Topological Sorting using Kahn's Algorithm", duration: "18:47", topicId: "graphs" },
   { id: "apna-graph14", videoId: "8gYBHjtjWBI", title: "Dijkstra's Algorithm - Single Source Shortest Path - Greedy Method", duration: "35:20", topicId: "graphs" },
-  { id: "apna-graph15", videoId: "YlmU4gBgePA", title: "New DSA Sheet — DP, Heaps, Tries etc", duration: "6:24", topicId: "graphs" },
+  { id: "apna-graph15", videoId: "3rFHlbJ7qKc", title: "Bellman Ford Algorithm - Single Source Shortest Path - Dynamic Programming", duration: "23:38", topicId: "graphs" },
   { id: "apna-graph16", videoId: "Sflh1z6cIMk", title: "Prim's Algorithm - Minimum Spanning Tree in Graph", duration: "26:07", topicId: "graphs" },
   { id: "apna-graph17", videoId: "nnrjWxWMo3E", title: "Disjoint Set Union — With Rank/Size & Path Compression — Union Find", duration: "34:04", topicId: "graphs" },
   { id: "apna-graph18", videoId: "inoM6jwj1CA", title: "Kruskal's Algorithm - Minimum Spanning Tree in Graph", duration: "29:07", topicId: "graphs" },
