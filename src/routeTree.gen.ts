@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as HarryRouteImport } from './routes/harry'
 import { Route as CourseRouteImport } from './routes/course'
 import { Route as AssignmentsRouteImport } from './routes/assignments'
 import { Route as ApnaRouteImport } from './routes/apna'
@@ -26,6 +27,11 @@ const NotesRoute = NotesRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HarryRoute = HarryRouteImport.update({
+  id: '/harry',
+  path: '/harry',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CourseRoute = CourseRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/apna': typeof ApnaRouteWithChildren
   '/assignments': typeof AssignmentsRoute
   '/course': typeof CourseRouteWithChildren
+  '/harry': typeof HarryRoute
   '/login': typeof LoginRoute
   '/notes': typeof NotesRoute
   '/apna/$lectureId': typeof ApnaLectureIdRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/apna': typeof ApnaRouteWithChildren
   '/assignments': typeof AssignmentsRoute
   '/course': typeof CourseRouteWithChildren
+  '/harry': typeof HarryRoute
   '/login': typeof LoginRoute
   '/notes': typeof NotesRoute
   '/apna/$lectureId': typeof ApnaLectureIdRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/apna': typeof ApnaRouteWithChildren
   '/assignments': typeof AssignmentsRoute
   '/course': typeof CourseRouteWithChildren
+  '/harry': typeof HarryRoute
   '/login': typeof LoginRoute
   '/notes': typeof NotesRoute
   '/apna/$lectureId': typeof ApnaLectureIdRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/apna'
     | '/assignments'
     | '/course'
+    | '/harry'
     | '/login'
     | '/notes'
     | '/apna/$lectureId'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/apna'
     | '/assignments'
     | '/course'
+    | '/harry'
     | '/login'
     | '/notes'
     | '/apna/$lectureId'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/apna'
     | '/assignments'
     | '/course'
+    | '/harry'
     | '/login'
     | '/notes'
     | '/apna/$lectureId'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   ApnaRoute: typeof ApnaRouteWithChildren
   AssignmentsRoute: typeof AssignmentsRoute
   CourseRoute: typeof CourseRouteWithChildren
+  HarryRoute: typeof HarryRoute
   LoginRoute: typeof LoginRoute
   NotesRoute: typeof NotesRoute
 }
@@ -146,6 +159,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/harry': {
+      id: '/harry'
+      path: '/harry'
+      fullPath: '/harry'
+      preLoaderRoute: typeof HarryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/course': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApnaRoute: ApnaRouteWithChildren,
   AssignmentsRoute: AssignmentsRoute,
   CourseRoute: CourseRouteWithChildren,
+  HarryRoute: HarryRoute,
   LoginRoute: LoginRoute,
   NotesRoute: NotesRoute,
 }
