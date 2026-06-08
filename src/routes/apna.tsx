@@ -320,7 +320,7 @@ function LectureView({
     <div className="flex flex-col">
       {/* Video player */}
       <div className="w-full bg-black">
-        <VideoPlayer videoId={lecture.videoId} />
+        <VideoPlayer videoId={lecture.videoId} title={lecture.title} />
       </div>
 
       {/* Lecture info */}
