@@ -10,6 +10,12 @@ import { WelcomeModal } from "@/components/welcome-modal";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { APNA_LECTURES, APNA_PROGRESS_KEY, APNA_TOPICS } from "@/lib/apna-content";
+import {
+  HARRY_DSA_LECTURES,
+  HARRY_JAVA_PROGRESS_KEY,
+  HARRY_CPP_PROGRESS_KEY,
+  HARRY_DSA_PROGRESS_KEY,
+} from "@/lib/harry-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
