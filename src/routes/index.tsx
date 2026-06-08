@@ -257,6 +257,12 @@ const THEME = {
     btn: "from-violet-500 to-pink-500 shadow-violet-500/20 hover:shadow-violet-500/35",
     badge: "bg-violet-500/10 text-violet-300 ring-1 ring-violet-500/20",
   },
+  amber: {
+    progress: "from-amber-400 to-orange-400",
+    ring: "ring-amber-500/20",
+    btn: "from-amber-500 to-orange-500 shadow-amber-500/20 hover:shadow-amber-500/35",
+    badge: "bg-amber-500/10 text-amber-300 ring-1 ring-amber-500/20",
+  },
 };
 
 function CourseCard({
