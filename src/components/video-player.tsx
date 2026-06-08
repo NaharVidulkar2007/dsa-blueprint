@@ -247,7 +247,7 @@ export function VideoPlayer({ videoId, title }: { videoId: string; title: string
     if (!wrapper) return;
 
     // 1. Standard API on our wrapper div (works on Android + desktop)
-    if (wrapper.requestFullscreen || wrapper.webkitRequestFullscreen) {
+    if (typeof wrapper.requestFullscreen === "function" || typeof (wrapper as any).webkitRequestFullscreen === "function") {
       try { await requestFullscreen(wrapper); return; } catch { /* fall through */ }
     }
 
