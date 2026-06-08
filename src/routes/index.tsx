@@ -233,7 +233,7 @@ type StatItem = { icon: React.ElementType; value: string };
 
 type CourseCardProps = {
   href: string;
-  theme: "cyan" | "violet";
+  theme: "cyan" | "violet" | "amber";
   banner: React.ReactNode;
   title: string;
   instructor: string;
