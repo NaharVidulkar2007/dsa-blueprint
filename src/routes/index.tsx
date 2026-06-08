@@ -405,6 +405,35 @@ function ApnaBanner() {
   );
 }
 
+function HarryBanner() {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-amber-950 via-zinc-900 to-orange-950">
+      {/* Glows */}
+      <div className="absolute -top-8 right-1/3 h-36 w-36 rounded-full bg-amber-500/20 blur-2xl" />
+      <div className="absolute bottom-0 right-0 h-28 w-28 rounded-full bg-orange-500/20 blur-2xl" />
+      {/* Floating chips */}
+      <div className="absolute right-6 top-4 flex flex-col gap-1.5 opacity-30">
+        {["Java", "C++", "DSA", "Graphs", "DP"].map((s) => (
+          <span key={s} className="rounded bg-amber-400/20 px-1.5 py-0.5 font-mono text-[9px] text-amber-300">
+            {s}
+          </span>
+        ))}
+      </div>
+      {/* CHW monogram */}
+      <div className="absolute right-6 bottom-4 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/30 text-sm font-bold text-white">
+        CHW
+      </div>
+      {/* Text overlay left */}
+      <div className="relative z-10 flex h-full flex-col justify-end p-4">
+        <div className="mb-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-amber-500/20 px-2.5 py-1 text-[10px] font-medium text-amber-300 ring-1 ring-amber-500/30">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-orange-400" /> CodeWithHarry
+        </div>
+        <p className="text-xs text-zinc-400">Java · C++ · DSA</p>
+      </div>
+    </div>
+  );
+}
+
 // ── Coming Soon card ──────────────────────────────────────────────────────────
 
 const COMING_THEME = {
