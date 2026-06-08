@@ -9,7 +9,7 @@ import { AccountMenu } from "@/components/account-menu";
 import { WelcomeModal } from "@/components/welcome-modal";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
-import { APNA_LECTURES, APNA_PROGRESS_KEY } from "@/lib/apna-content";
+import { APNA_LECTURES, APNA_PROGRESS_KEY, APNA_TOPICS } from "@/lib/apna-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,7 +47,7 @@ function useKunalProgress(userId: string | undefined) {
 const KUNAL_TOTAL = 69;
 const KUNAL_TOPICS = 18;
 const APNA_TOTAL = APNA_LECTURES.length;
-const APNA_TOPICS_COUNT = 15;
+const APNA_TOPICS_COUNT = APNA_TOPICS.length;
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -340,7 +340,7 @@ function ApnaBanner() {
       <div className="absolute bottom-0 right-0 h-28 w-28 rounded-full bg-pink-500/15 blur-2xl" />
       {/* Decorative floating shapes */}
       <div className="absolute right-6 top-4 flex flex-col gap-1.5 opacity-30">
-        {["Array", "Stack", "Tree", "Graph", "DP"].map((s) => (
+        {["Array", "Stack", "Tree", "Graph", "BST"].map((s) => (
           <span key={s} className="rounded bg-violet-400/20 px-1.5 py-0.5 font-mono text-[9px] text-violet-300">
             {s}
           </span>
