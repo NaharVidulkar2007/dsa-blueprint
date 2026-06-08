@@ -130,12 +130,12 @@ function Home() {
           <p className="mt-1.5 text-sm text-zinc-500">{subtitle}</p>
 
           {/* Overall progress mini-summary */}
-          {(kunalCompleted > 0 || apnaDone > 0) && (
+          {(kunalCompleted > 0 || apnaDone > 0 || harryDone > 0) && (
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-zinc-400">
               <CheckCircle2 className="h-3.5 w-3.5 text-teal-400" />
               <span>
                 <span className="font-medium text-zinc-300">
-                  {kunalCompleted + apnaDone}
+                  {kunalCompleted + apnaDone + harryDone}
                 </span>{" "}
                 lectures completed across all courses
               </span>
