@@ -76,6 +76,20 @@ function Home() {
     } catch {}
   }, []);
 
+  const [harryDone, setHarryDone] = useState(0);
+  useEffect(() => {
+    try {
+      const j = localStorage.getItem(HARRY_JAVA_PROGRESS_KEY);
+      const c = localStorage.getItem(HARRY_CPP_PROGRESS_KEY);
+      const d = localStorage.getItem(HARRY_DSA_PROGRESS_KEY);
+      setHarryDone(
+        (j ? (JSON.parse(j) as string[]).length : 0) +
+        (c ? (JSON.parse(c) as string[]).length : 0) +
+        (d ? (JSON.parse(d) as string[]).length : 0)
+      );
+    } catch {}
+  }, []);
+
   const kunalCompleted = user ? kunalDone : kunalGuestDone;
   const kunalPct = Math.round((kunalCompleted / KUNAL_TOTAL) * 100);
   const apnaPct = Math.round((apnaDone / APNA_TOTAL) * 100);
