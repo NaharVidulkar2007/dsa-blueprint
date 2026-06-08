@@ -10,6 +10,12 @@ import { WelcomeModal } from "@/components/welcome-modal";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { APNA_LECTURES, APNA_PROGRESS_KEY, APNA_TOPICS } from "@/lib/apna-content";
+import {
+  HARRY_DSA_LECTURES,
+  HARRY_JAVA_PROGRESS_KEY,
+  HARRY_CPP_PROGRESS_KEY,
+  HARRY_DSA_PROGRESS_KEY,
+} from "@/lib/harry-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,6 +76,20 @@ function Home() {
     } catch {}
   }, []);
 
+  const [harryDone, setHarryDone] = useState(0);
+  useEffect(() => {
+    try {
+      const j = localStorage.getItem(HARRY_JAVA_PROGRESS_KEY);
+      const c = localStorage.getItem(HARRY_CPP_PROGRESS_KEY);
+      const d = localStorage.getItem(HARRY_DSA_PROGRESS_KEY);
+      setHarryDone(
+        (j ? (JSON.parse(j) as string[]).length : 0) +
+        (c ? (JSON.parse(c) as string[]).length : 0) +
+        (d ? (JSON.parse(d) as string[]).length : 0)
+      );
+    } catch {}
+  }, []);
+
   const kunalCompleted = user ? kunalDone : kunalGuestDone;
   const kunalPct = Math.round((kunalCompleted / KUNAL_TOTAL) * 100);
   const apnaPct = Math.round((apnaDone / APNA_TOTAL) * 100);
@@ -110,12 +130,12 @@ function Home() {
           <p className="mt-1.5 text-sm text-zinc-500">{subtitle}</p>
 
           {/* Overall progress mini-summary */}
-          {(kunalCompleted > 0 || apnaDone > 0) && (
+          {(kunalCompleted > 0 || apnaDone > 0 || harryDone > 0) && (
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-zinc-400">
               <CheckCircle2 className="h-3.5 w-3.5 text-teal-400" />
               <span>
                 <span className="font-medium text-zinc-300">
-                  {kunalCompleted + apnaDone}
+                  {kunalCompleted + apnaDone + harryDone}
                 </span>{" "}
                 lectures completed across all courses
               </span>
@@ -124,7 +144,7 @@ function Home() {
         </section>
 
         {/* ── Available Courses ──────────────────────────────────────────── */}
-        <SectionHeader label="Available Courses" count={2} />
+        <SectionHeader label="Available Courses" count={3} />
 
         <div className="mt-3 space-y-4">
           {/* Kunal Kushwaha card */}
@@ -163,6 +183,24 @@ function Home() {
             completed={apnaDone}
             total={APNA_TOTAL}
             pct={apnaPct}
+          />
+
+          {/* CodeWithHarry card */}
+          <CourseCard
+            href="/harry"
+            theme="amber"
+            banner={<HarryBanner />}
+            title="Java / C++ + DSA"
+            instructor="CodeWithHarry"
+            language="Java · C++"
+            stats={[
+              { icon: PlayCircle, value: "430+ lectures" },
+              { icon: BookOpen,   value: "3 courses" },
+              { icon: Users,      value: "CodeWithHarry" },
+            ]}
+            completed={harryDone}
+            total={430}
+            pct={Math.round((harryDone / 430) * 100)}
           />
         </div>
 
@@ -213,7 +251,7 @@ type StatItem = { icon: React.ElementType; value: string };
 
 type CourseCardProps = {
   href: string;
-  theme: "cyan" | "violet";
+  theme: "cyan" | "violet" | "amber";
   banner: React.ReactNode;
   title: string;
   instructor: string;
@@ -236,6 +274,12 @@ const THEME = {
     ring: "ring-violet-500/20",
     btn: "from-violet-500 to-pink-500 shadow-violet-500/20 hover:shadow-violet-500/35",
     badge: "bg-violet-500/10 text-violet-300 ring-1 ring-violet-500/20",
+  },
+  amber: {
+    progress: "from-amber-400 to-orange-400",
+    ring: "ring-amber-500/20",
+    btn: "from-amber-500 to-orange-500 shadow-amber-500/20 hover:shadow-amber-500/35",
+    badge: "bg-amber-500/10 text-amber-300 ring-1 ring-amber-500/20",
   },
 };
 
@@ -356,6 +400,35 @@ function ApnaBanner() {
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-pink-400" /> Apna College
         </div>
         <p className="text-xs text-zinc-400">C++ · DSA Series</p>
+      </div>
+    </div>
+  );
+}
+
+function HarryBanner() {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-amber-950 via-zinc-900 to-orange-950">
+      {/* Glows */}
+      <div className="absolute -top-8 right-1/3 h-36 w-36 rounded-full bg-amber-500/20 blur-2xl" />
+      <div className="absolute bottom-0 right-0 h-28 w-28 rounded-full bg-orange-500/20 blur-2xl" />
+      {/* Floating chips */}
+      <div className="absolute right-6 top-4 flex flex-col gap-1.5 opacity-30">
+        {["Java", "C++", "DSA", "Graphs", "DP"].map((s) => (
+          <span key={s} className="rounded bg-amber-400/20 px-1.5 py-0.5 font-mono text-[9px] text-amber-300">
+            {s}
+          </span>
+        ))}
+      </div>
+      {/* CHW monogram */}
+      <div className="absolute right-6 bottom-4 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/30 text-sm font-bold text-white">
+        CHW
+      </div>
+      {/* Text overlay left */}
+      <div className="relative z-10 flex h-full flex-col justify-end p-4">
+        <div className="mb-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-amber-500/20 px-2.5 py-1 text-[10px] font-medium text-amber-300 ring-1 ring-amber-500/30">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-orange-400" /> CodeWithHarry
+        </div>
+        <p className="text-xs text-zinc-400">Java · C++ · DSA</p>
       </div>
     </div>
   );
