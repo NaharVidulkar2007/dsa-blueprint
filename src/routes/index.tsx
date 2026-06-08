@@ -242,12 +242,6 @@ type CourseCardProps = {
   completed: number;
   total: number;
   pct: number;
-  amber: {
-    progress: "from-amber-400 to-orange-400",
-    ring: "ring-amber-500/20",
-    btn: "from-amber-500 to-orange-500 shadow-amber-500/20 hover:shadow-amber-500/35",
-    badge: "bg-amber-500/10 text-amber-300 ring-1 ring-amber-500/20",
-  },
 };
 
 const THEME = {
