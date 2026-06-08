@@ -184,6 +184,24 @@ function Home() {
             total={APNA_TOTAL}
             pct={apnaPct}
           />
+
+          {/* CodeWithHarry card */}
+          <CourseCard
+            href="/harry"
+            theme="amber"
+            banner={<HarryBanner />}
+            title="Java / C++ + DSA"
+            instructor="CodeWithHarry"
+            language="Java · C++"
+            stats={[
+              { icon: PlayCircle, value: "430+ lectures" },
+              { icon: BookOpen,   value: "3 courses" },
+              { icon: Users,      value: "CodeWithHarry" },
+            ]}
+            completed={harryDone}
+            total={430}
+            pct={Math.round((harryDone / 430) * 100)}
+          />
         </div>
 
         {/* ── Coming Soon ────────────────────────────────────────────────── */}
