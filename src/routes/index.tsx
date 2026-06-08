@@ -144,7 +144,7 @@ function Home() {
         </section>
 
         {/* ── Available Courses ──────────────────────────────────────────── */}
-        <SectionHeader label="Available Courses" count={2} />
+        <SectionHeader label="Available Courses" count={3} />
 
         <div className="mt-3 space-y-4">
           {/* Kunal Kushwaha card */}
