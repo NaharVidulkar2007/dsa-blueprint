@@ -297,6 +297,7 @@ function ApnaSidebar({
           </div>
         );
       })}
+      </div>
     </div>
   );
 }
