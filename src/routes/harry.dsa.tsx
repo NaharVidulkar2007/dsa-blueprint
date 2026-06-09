@@ -386,6 +386,10 @@ function LectureView({
           )}
         </div>
 
+        <div className="mt-4">
+          <RecommendationStrip lectureTitle={lecture.title} accent="emerald" />
+        </div>
+
         <div className="mt-6 rounded-xl border border-white/8 bg-white/[0.03] p-4">
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">
             <BookOpen className="h-3.5 w-3.5" /> Resources
