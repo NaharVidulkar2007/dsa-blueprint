@@ -18,6 +18,7 @@ import { Route as ApnaRouteImport } from './routes/apna'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HarryJavaRouteImport } from './routes/harry.java'
 import { Route as HarryDsaRouteImport } from './routes/harry.dsa'
+import { Route as HarryCppRouteImport } from './routes/harry.cpp'
 import { Route as CourseLectureIdRouteImport } from './routes/course.$lectureId'
 import { Route as ApnaLectureIdRouteImport } from './routes/apna.$lectureId'
 import { Route as HarryJavaLectureIdRouteImport } from './routes/harry.java.$lectureId'
@@ -69,6 +70,11 @@ const HarryDsaRoute = HarryDsaRouteImport.update({
   path: '/dsa',
   getParentRoute: () => HarryRoute,
 } as any)
+const HarryCppRoute = HarryCppRouteImport.update({
+  id: '/cpp',
+  path: '/cpp',
+  getParentRoute: () => HarryRoute,
+} as any)
 const CourseLectureIdRoute = CourseLectureIdRouteImport.update({
   id: '/$lectureId',
   path: '/$lectureId',
@@ -90,9 +96,9 @@ const HarryDsaLectureIdRoute = HarryDsaLectureIdRouteImport.update({
   getParentRoute: () => HarryDsaRoute,
 } as any)
 const HarryCppLectureIdRoute = HarryCppLectureIdRouteImport.update({
-  id: '/cpp/$lectureId',
-  path: '/cpp/$lectureId',
-  getParentRoute: () => HarryRoute,
+  id: '/$lectureId',
+  path: '/$lectureId',
+  getParentRoute: () => HarryCppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/notes': typeof NotesRoute
   '/apna/$lectureId': typeof ApnaLectureIdRoute
   '/course/$lectureId': typeof CourseLectureIdRoute
+  '/harry/cpp': typeof HarryCppRouteWithChildren
   '/harry/dsa': typeof HarryDsaRouteWithChildren
   '/harry/java': typeof HarryJavaRouteWithChildren
   '/harry/cpp/$lectureId': typeof HarryCppLectureIdRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/notes': typeof NotesRoute
   '/apna/$lectureId': typeof ApnaLectureIdRoute
   '/course/$lectureId': typeof CourseLectureIdRoute
+  '/harry/cpp': typeof HarryCppRouteWithChildren
   '/harry/dsa': typeof HarryDsaRouteWithChildren
   '/harry/java': typeof HarryJavaRouteWithChildren
   '/harry/cpp/$lectureId': typeof HarryCppLectureIdRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/notes': typeof NotesRoute
   '/apna/$lectureId': typeof ApnaLectureIdRoute
   '/course/$lectureId': typeof CourseLectureIdRoute
+  '/harry/cpp': typeof HarryCppRouteWithChildren
   '/harry/dsa': typeof HarryDsaRouteWithChildren
   '/harry/java': typeof HarryJavaRouteWithChildren
   '/harry/cpp/$lectureId': typeof HarryCppLectureIdRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/apna/$lectureId'
     | '/course/$lectureId'
+    | '/harry/cpp'
     | '/harry/dsa'
     | '/harry/java'
     | '/harry/cpp/$lectureId'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/apna/$lectureId'
     | '/course/$lectureId'
+    | '/harry/cpp'
     | '/harry/dsa'
     | '/harry/java'
     | '/harry/cpp/$lectureId'
@@ -188,6 +199,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/apna/$lectureId'
     | '/course/$lectureId'
+    | '/harry/cpp'
     | '/harry/dsa'
     | '/harry/java'
     | '/harry/cpp/$lectureId'
@@ -270,6 +282,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HarryDsaRouteImport
       parentRoute: typeof HarryRoute
     }
+    '/harry/cpp': {
+      id: '/harry/cpp'
+      path: '/cpp'
+      fullPath: '/harry/cpp'
+      preLoaderRoute: typeof HarryCppRouteImport
+      parentRoute: typeof HarryRoute
+    }
     '/course/$lectureId': {
       id: '/course/$lectureId'
       path: '/$lectureId'
@@ -300,10 +319,10 @@ declare module '@tanstack/react-router' {
     }
     '/harry/cpp/$lectureId': {
       id: '/harry/cpp/$lectureId'
-      path: '/cpp/$lectureId'
+      path: '/$lectureId'
       fullPath: '/harry/cpp/$lectureId'
       preLoaderRoute: typeof HarryCppLectureIdRouteImport
-      parentRoute: typeof HarryRoute
+      parentRoute: typeof HarryCppRoute
     }
   }
 }
@@ -328,6 +347,18 @@ const CourseRouteChildren: CourseRouteChildren = {
 
 const CourseRouteWithChildren =
   CourseRoute._addFileChildren(CourseRouteChildren)
+
+interface HarryCppRouteChildren {
+  HarryCppLectureIdRoute: typeof HarryCppLectureIdRoute
+}
+
+const HarryCppRouteChildren: HarryCppRouteChildren = {
+  HarryCppLectureIdRoute: HarryCppLectureIdRoute,
+}
+
+const HarryCppRouteWithChildren = HarryCppRoute._addFileChildren(
+  HarryCppRouteChildren,
+)
 
 interface HarryDsaRouteChildren {
   HarryDsaLectureIdRoute: typeof HarryDsaLectureIdRoute
@@ -354,15 +385,15 @@ const HarryJavaRouteWithChildren = HarryJavaRoute._addFileChildren(
 )
 
 interface HarryRouteChildren {
+  HarryCppRoute: typeof HarryCppRouteWithChildren
   HarryDsaRoute: typeof HarryDsaRouteWithChildren
   HarryJavaRoute: typeof HarryJavaRouteWithChildren
-  HarryCppLectureIdRoute: typeof HarryCppLectureIdRoute
 }
 
 const HarryRouteChildren: HarryRouteChildren = {
+  HarryCppRoute: HarryCppRouteWithChildren,
   HarryDsaRoute: HarryDsaRouteWithChildren,
   HarryJavaRoute: HarryJavaRouteWithChildren,
-  HarryCppLectureIdRoute: HarryCppLectureIdRoute,
 }
 
 const HarryRouteWithChildren = HarryRoute._addFileChildren(HarryRouteChildren)
