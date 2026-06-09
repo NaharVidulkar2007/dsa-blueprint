@@ -329,7 +329,13 @@ function LectureView({
   return (
     <div className="flex flex-col">
       <div className="w-full bg-black">
-        <VideoPlayer videoId={lecture.videoId} title={lecture.title} />
+        {lecture.videoId === "TODO" ? (
+          <div className="mx-auto flex aspect-video w-full max-w-5xl items-center justify-center bg-zinc-900 text-center text-sm text-zinc-400 px-6">
+            Video coming soon — add videoId in harry-content.ts
+          </div>
+        ) : (
+          <VideoPlayer videoId={lecture.videoId} title={lecture.title} />
+        )}
       </div>
 
       <div className="mx-auto w-full max-w-3xl px-4 py-5">
@@ -392,6 +398,10 @@ function LectureView({
             </Link>
           </div>
         )}
+
+        <div className="mt-4">
+          <RecommendationStrip lectureTitle={lecture.title} accent="amber" />
+        </div>
 
         <div className="mt-6 rounded-xl border border-white/8 bg-white/[0.03] p-4">
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">
