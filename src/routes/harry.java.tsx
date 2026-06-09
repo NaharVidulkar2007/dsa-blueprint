@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { VideoPlayer } from "@/components/video-player";
 import { AccountMenu } from "@/components/account-menu";
+import { RecommendationStrip } from "@/components/recommendation-strip";
 import {
   HARRY_JAVA_TOPICS, HARRY_JAVA_LECTURES, HARRY_JAVA_BY_TOPIC,
   HARRY_JAVA_PROGRESS_KEY, HARRY_JAVA_LAST_KEY,
@@ -70,7 +71,7 @@ function HarryJavaLayout() {
   useEffect(() => { setDrawerOpen(false); }, [params.lectureId]);
 
   const currentLecture = HARRY_JAVA_LECTURES.find((l) => l.id === params.lectureId);
-  const isEmpty = HARRY_JAVA_LECTURES.length === 0;
+  const isEmpty = HARRY_JAVA_LECTURES.filter((l) => l.videoId !== "TODO").length === 0;
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-zinc-950">
@@ -126,7 +127,7 @@ function HarryJavaLayout() {
               <Sparkles className="h-5 w-5 text-amber-400" />
             </div>
             <h2 className="text-base font-semibold text-zinc-200">
-              Java lectures are being added. Check back soon!
+              Java video IDs are being added — check back soon!
             </h2>
             <Link
               to="/harry"
@@ -184,6 +185,7 @@ function HarrySidebar({
   completed, activeLectureId, onSelect,
 }: { completed: Set<string>; activeLectureId?: string; onSelect?: () => void }) {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
   const activeTopic = useMemo(
     () => HARRY_JAVA_LECTURES.find((l) => l.id === activeLectureId)?.topicId,
     [activeLectureId]
@@ -203,12 +205,28 @@ function HarrySidebar({
       return next;
     });
 
+  const q = search.trim().toLowerCase();
+
   return (
-    <div className="flex-1 overflow-y-auto py-2">
+    <div className="flex flex-col min-h-0 flex-1">
+      <div className="px-3 py-2 border-b border-white/8">
+        <input
+          type="text"
+          placeholder="Search lectures…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full rounded-lg bg-white/5 px-3 py-1.5 text-xs text-zinc-300 placeholder-zinc-600 outline-none ring-1 ring-white/10 focus:ring-amber-500/50"
+        />
+      </div>
+      <div className="flex-1 overflow-y-auto py-2">
       {HARRY_JAVA_TOPICS.map((topic) => {
-        const lectures = HARRY_JAVA_BY_TOPIC[topic.id] ?? [];
+        const allLectures = HARRY_JAVA_BY_TOPIC[topic.id] ?? [];
+        const lectures = q
+          ? allLectures.filter((l) => l.title.toLowerCase().includes(q))
+          : allLectures;
+        if (q && lectures.length === 0) return null;
         const doneCount = lectures.filter((l) => completed.has(l.id)).length;
-        const isOpen = openTopics.has(topic.id);
+        const isOpen = q ? true : openTopics.has(topic.id);
 
         return (
           <div key={topic.id}>
@@ -274,6 +292,7 @@ function HarrySidebar({
           </div>
         );
       })}
+      </div>
     </div>
   );
 }
