@@ -429,6 +429,10 @@ function LectureView({
             </a>
           </div>
         </div>
+
+        <div className="mt-4">
+          <RecommendationStrip lectureTitle={lecture.title} accent="violet" />
+        </div>
       </div>
     </div>
   );
