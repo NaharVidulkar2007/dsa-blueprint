@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { VideoPlayer } from "@/components/video-player";
 import { AccountMenu } from "@/components/account-menu";
+import { RecommendationStrip } from "@/components/recommendation-strip";
 import {
   APNA_TOPICS, APNA_LECTURES, APNA_LECTURES_BY_TOPIC,
   APNA_PROGRESS_KEY, APNA_LAST_WATCHED_KEY,
@@ -186,6 +187,7 @@ function ApnaSidebar({
   onSelect?: () => void;
 }) {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
   const activeTopic = useMemo(
     () => APNA_LECTURES.find((l) => l.id === activeLectureId)?.topicId,
     [activeLectureId]
@@ -206,12 +208,28 @@ function ApnaSidebar({
       return next;
     });
 
+  const q = search.trim().toLowerCase();
+
   return (
-    <div className="flex-1 overflow-y-auto py-2">
+    <div className="flex flex-col min-h-0 flex-1">
+      <div className="px-3 py-2 border-b border-white/8">
+        <input
+          type="text"
+          placeholder="Search lectures…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full rounded-lg bg-white/5 px-3 py-1.5 text-xs text-zinc-300 placeholder-zinc-600 outline-none ring-1 ring-white/10 focus:ring-violet-500/50"
+        />
+      </div>
+      <div className="flex-1 overflow-y-auto py-2">
       {APNA_TOPICS.map((topic) => {
-        const lectures = APNA_LECTURES_BY_TOPIC[topic.id] ?? [];
+        const allLectures = APNA_LECTURES_BY_TOPIC[topic.id] ?? [];
+        const lectures = q
+          ? allLectures.filter((l) => l.title.toLowerCase().includes(q))
+          : allLectures;
+        if (q && lectures.length === 0) return null;
         const doneCount = lectures.filter((l) => completed.has(l.id)).length;
-        const isOpen = openTopics.has(topic.id);
+        const isOpen = q ? true : openTopics.has(topic.id);
 
         return (
           <div key={topic.id}>
@@ -279,6 +297,7 @@ function ApnaSidebar({
           </div>
         );
       })}
+      </div>
     </div>
   );
 }
@@ -409,6 +428,10 @@ function LectureView({
               Apna College YouTube Channel
             </a>
           </div>
+        </div>
+
+        <div className="mt-4">
+          <RecommendationStrip lectureTitle={lecture.title} accent="violet" />
         </div>
       </div>
     </div>
